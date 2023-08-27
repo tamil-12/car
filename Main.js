@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Pressable, TextInput,Animated,} from 'react-native';
-import Slider from '@react-native-community/slider'
-import Video from 'react-native-video';
 const styles = StyleSheet.create({
   main: {
     flex: 1,
@@ -166,16 +164,11 @@ const Main = () => {
           <Text style={{ fontSize: 24 }}></Text> Electric car
         </Text>
       </View>
-      {/* <Animated.Image
+      <Animated.Image
         source={require('./img/home.png')}
         style={[styles.image, { opacity: fadeIn }]}
-      /> */}
-     <Video
-        source={require('./assets/vid.mp4')}
-        style={styles.backgroundVideo}
-        resizeMode="cover"
-        repeat
       />
+   
 
 <Text style={
   {
