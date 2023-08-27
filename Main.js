@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Pressable, TextInput } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Pressable, TextInput,Animated,} from 'react-native';
 import Slider from '@react-native-community/slider'
-
+import Video from 'react-native-video';
 const styles = StyleSheet.create({
   main: {
     flex: 1,
@@ -140,12 +140,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const MainComponent = () => {
+const Main = () => {
   const [temp,setTemp]=useState(0);
   const [mil,setMil]=useState(0);
   const [bat,setBat]=useState(0);
   const [color,setColor]=useState('green');
   const [status,setStatus]=useState('Good');
+  
+  const [fadeIn] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(fadeIn, {
+      toValue: 1,
+      duration: 5000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
   return (
     <ScrollView style={styles.main}>
     <View style={styles.section}>
@@ -156,9 +166,15 @@ const MainComponent = () => {
           <Text style={{ fontSize: 24 }}></Text> Electric car
         </Text>
       </View>
-      <Image
+      {/* <Animated.Image
         source={require('./img/home.png')}
-        style={styles.image}
+        style={[styles.image, { opacity: fadeIn }]}
+      /> */}
+     <Video
+        source={require('./assets/vid.mp4')}
+        style={styles.backgroundVideo}
+        resizeMode="cover"
+        repeat
       />
 
 <Text style={
@@ -218,77 +234,19 @@ const MainComponent = () => {
         </View>
         
       </View>
-      <View style={styles.rangeInput}>
-          <Text style={styles.rangeLabel}>Temperature</Text>
-          <Slider
-            style={styles.rangeSlider}
-            value={temp}
-            minimumValue={0}
-            maximumValue={100}
-            step={1}
-            onValueChange={(value) => {
-
-              setTemp(value)
-              
-            
-            }}
-          />
-          {/* <Text style={styles.rangeValue}>{temp}°C</Text> */}
-        </View>
-        <View style={styles.rangeInput}>
-          <Text style={styles.rangeLabel}>Mileage</Text>
-          <Slider
-            style={styles.rangeSlider}
-            value={mil}
-            minimumValue={0}
-            maximumValue={1000}
-            step={1}
-            onValueChange={(value) => setMil(value)}
-          />
-          {/* <Text style={styles.rangeValue}>{mil}</Text> */}
-        </View>
-        <View style={styles.rangeInput}>
-          <Text style={styles.rangeLabel}>Battery</Text>
-          <Slider
-            style={styles.rangeSlider}
-            value={bat}
-            minimumValue={0}
-            maximumValue={100}
-            step={1}
-            onValueChange={(value) => {
-              setBat(value)
-              if(value<=25){
-                setColor('red')
-                setStatus('Low')
-              }else if(value>25 && value<=75){
-                setColor('orange')
-                setStatus('Normal')
-              }
-              else if(value==100){
-                setColor('green')
-                setStatus('Full')
-              }
-              
-              else{
-                setColor('green')
-                setStatus('Good')
-              }}}
-          />
-          {/* <Text style={styles.rangeValue}>{bat}%</Text> */}
-        </View>
-        <Pressable onPress={() => alert('Cannot start..!..Please Connect your Vehicle')} >
-        <View  style={styles.buttonWrapper}>
-          <TouchableOpacity style={styles.home__button} >
-            <Text style={{ fontSize: 18, color: 'white' }}>START</Text>
-          </TouchableOpacity>
-          <View style={styles.buttonGlow}></View>
-        </View></Pressable>
-
+      <Pressable onPress={() => alert('Cannot start..!..Please Connect your Vehicle')}>
+  <View style={styles.buttonWrapper}>
+    <Animated.View style={[styles.home__button, { opacity: fadeIn }]}>
+      <Text style={{ fontSize: 18, color: 'white' }}>START</Text>
+    </Animated.View>
+    <View style={styles.buttonGlow}></View>
+  </View>
+</Pressable>
     
       </View>
     </ScrollView>
   );
 };
 
-export default MainComponent;
+export default Main;
 

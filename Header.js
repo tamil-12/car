@@ -64,13 +64,9 @@ const Header = () => {
               <Text style={styles.nav__link}>Popular</Text>
             </TouchableOpacity>
           </View>
-          {/* <View style={styles.nav_item}>
-            <TouchableOpacity onPress={() => alert('Map Clicked')}>
-              <Text style={styles.nav__link}>Location</Text>
-            </TouchableOpacity>
-          </View> */}
+          
           <View style={styles.nav_item}>
-      <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Location')}>
         <Text style={styles.nav__link}>Location</Text>
       </TouchableOpacity>
     </View>

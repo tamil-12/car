@@ -23,15 +23,50 @@
 
 // // export default App;
 
+// import React from 'react';
+// import { View, StatusBar } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import MapScreen from './MapScreen'; // Adjust the path
+// import Header from './Header';
+// import Main from './Main';
+// import Footer from './Footer';
+// import { AppRegistry } from 'react-native';
+// import Login from './Login';
+// const Stack = createStackNavigator();
+
+// function App() {
+//   return (
+//     <NavigationContainer>
+//       <View style={{ backgroundColor: 'black', height: '100%' }}>
+//       <Stack.Navigator
+//           initialRouteName="Login" // Set the initial screen to Login
+        
+//         >
+//           <Stack.Screen name="Welcome back!" component={Login} />
+//           <Stack.Screen name="Home" component={Main} />
+//           <Stack.Screen name="MapScreen" component={MapScreen} />
+//           {/* Add more screens as needed */}
+//         </Stack.Navigator>
+//         <Footer />
+//         <StatusBar style="auto" />
+//       </View>
+//     </NavigationContainer>
+
+//   );
+// }
+
+// export default App;
 import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MapScreen from './MapScreen'; // Adjust the path
+import MapScreen from './MapScreen';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import { AppRegistry } from 'react-native';
+import Login from './Login';
+
 const Stack = createStackNavigator();
 
 function App() {
@@ -39,21 +74,25 @@ function App() {
     <NavigationContainer>
       <View style={{ backgroundColor: 'black', height: '100%' }}>
         <Stack.Navigator
-          initialRouteName="Home" // Set your initial screen here
-          screenOptions={{
-            header: Header, // Use your custom header component
-          }}
+          initialRouteName="Welcome back!" // Set the initial screen to Login
         >
-          <Stack.Screen name="Home" component={Main} />
-          <Stack.Screen name="MapScreen" component={MapScreen} />
+          <Stack.Screen name="Welcome back!" component={Login} options={{ headerShown: false }}/>
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            options={{
+              header: (props) => <Header {...props} />, // Render Header only for Main screen
+            }}
+          />
+          <Stack.Screen name="Location" component={MapScreen} />
           {/* Add more screens as needed */}
         </Stack.Navigator>
         <Footer />
         <StatusBar style="auto" />
       </View>
     </NavigationContainer>
-
   );
 }
 
 export default App;
+
